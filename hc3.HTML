@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ جهازك تحت السيطرة ⚠️</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            cursor: none;
+            user-select: none;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .message {
+            font-size: 28px;
+            display: none;
+            animation: flicker 0.8s infinite alternate;
+        }
+
+        .alert-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: red;
+            color: white;
+            padding: 25px;
+            font-size: 22px;
+            font-weight: bold;
+            display: none;
+            border-radius: 10px;
+            animation: glitch 0.1s infinite;
+        }
+
+        .footer-message {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: green;
+            font-size: 18px;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            animation: flicker 1s infinite alternate;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(-50%, -50%) skew(3deg, 3deg); }
+            50% { transform: translate(-50%, -50%) skew(-3deg, -3deg); }
+            100% { transform: translate(-50%, -50%) skew(3deg, 3deg); }
+        }
+
+        .error-screen {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: blue;
+            color: white;
+            padding: 50px;
+            font-size: 35px;
+            font-weight: bold;
+            z-index: 999;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="message" id="ransomware">⚠️ جميع ملفاتك مُشفرة! أرسل الفدية الآن! ⚠️</div>
+    <div class="alert-box" id="finalMessage">💀 نظامك في خطر! سيتم تدمير كل شيء! 💀</div>
+    <div class="footer-message" id="footerMessage">سرايا القدس نحو القدس</div>
+    <div class="error-screen" id="errorScreen">💀 SYSTEM ERROR! <br> Code: 0x000BAD 💀</div>
+
+    <script>
+        // إخفاء المؤشر
+        document.body.style.cursor = "none";
+
+        // إلغاء زر الفأرة
+        document.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+        });
+        document.addEventListener("mousedown", function(event) {
+            event.preventDefault();
+        });
+
+        // إخفاء المؤشر بالكامل
+        function disableCursor() {
+            document.body.style.cursor = 'none';
+        }
+
+        // تحريك الشاشة
+        function shakeScreen() {
+            let intensity = 30;
+            let interval = setInterval(() => {
+                let x = (Math.random() * intensity * 2) - intensity;
+                let y = (Math.random() * intensity * 2) - intensity;
+                document.body.style.transform = `translate(${x}px, ${y}px)`;
+            }, 50);
+            setTimeout(() => {
+                clearInterval(interval);
+                document.body.style.transform = "translate(0, 0)";
+            }, 25000);
+        }
+
+        // محاكاة اختراق
+        function fakeHacking() {
+            let texts = [
+                "تحميل بيانات النظام...",
+                "اختراق الحماية...",
+                "السيطرة على الجهاز...",
+                "سرقة البيانات...",
+                "تم إرسال جميع المعلومات!",
+                "جهازك مُدمر بالكامل!",
+                "أنت الآن تحت السيطرة الكاملة!"
+            ];
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < texts.length) {
+                    console.log(texts[i]);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 800);
+        }
+
+        // تشغيل الصوت
+        function playSound() {
+            let audio = new Audio('https://www.myinstants.com/media/sounds/scream.mp3');
+            audio.play();
+        }
+
+        // ظهور الرسالة
+        function showFakeVirus() {
+            document.getElementById("ransomware").style.display = "block";
+            shakeScreen();
+            fakeHacking();
+            playSound();
+        }
+
+        // ظهور الرسالة النهائية
+        function showFinalMessage() {
+            document.getElementById("finalMessage").style.display = "block";
+            shakeScreen();
+            playSound();
+        }
+
+        // التحكم في المتصفح
+        function browserControl() {
+            setInterval(() => {
+                history.pushState(null, null, location.href);
+                alert("⚠️ تحكم كامل بالنظام! لا مهرب لك! ⚠️");
+                document.body.style.backgroundColor = document.body.style.backgroundColor === 'black' ? 'red' : 'black';
+                document.title = "❌ اختراق كامل ❌";
+            }, 4000);
+        }
+
+        // شاشة الزرقاء
+        function fakeBlueScreen() {
+            document.body.innerHTML = "<h1 style='color:blue; font-size:50px;'>SYSTEM ERROR!<br>Code: 0x000BAD</h1>";
+            document.body.style.backgroundColor = "blue";
+        }
+
+        // شاشة الموت
+        function showDeathScreen() {
+            document.body.innerHTML = "<h1 style='color:red; font-size:50px;'>💀 انتهى أمرك! 💀</h1>";
+            document.body.style.backgroundColor = "black";
+        }
+
+        // إظهار شاشة خطأ مرعبة بعد 6 ثواني
+        setTimeout(() => {
+            document.getElementById("errorScreen").style.display = "block";
+            shakeScreen();
+            playSound();
+        }, 6000);
+
+        // تشغيل كافة التأثيرات
+        disableCursor();
+        setTimeout(showFakeVirus, 2000);
+        setTimeout(showFinalMessage, 10500);
+        setTimeout(browserControl, 3000);
+        setTimeout(fakeBlueScreen, 20000);
+        setTimeout(showDeathScreen, 8000);
+    </script>
+</body>
+</html>
